@@ -2,7 +2,6 @@ import "./App.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Card from "./components/card";
-import Mzah from "./assets/izah";
 
 function App() {
   return (
@@ -10,7 +9,6 @@ function App() {
       <Header />
       <hr />
       <Card />
-      <Mzah />
       <hr />
       {/* <Footer /> */}
     </div>
