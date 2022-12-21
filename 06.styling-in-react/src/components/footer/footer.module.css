@@ -1,0 +1,14 @@
+.my_input {
+    border: 2px solid black;
+    color: red;
+}
+
+.click-btn {
+    background-color: teal;
+    color: white;
+}
+
+.click-btn:hover {
+    background-color: cyan;
+    color: black;
+}

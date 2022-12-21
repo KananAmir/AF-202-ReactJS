@@ -6,6 +6,8 @@ const TodoApp = () => {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
   const [errorStatus, setErrorStatus] = useState(false);
+  const [editStatus, setEditStatus] = useState(false);
+  const [editBtnId, setEditBtnId] = useState("");
 
   const handleAddTodo = () => {
     if (inputValue) {
@@ -19,6 +21,21 @@ const TodoApp = () => {
     console.log(e.target.id);
     let updatedTodos = todos.filter((todo) => todo.todoId !== e.target.id);
     setTodos(updatedTodos);
+  };
+  const handleEdit = (e) => {
+    // console.log(e.target.parentElement.parentElement.children[0].innerText);
+    setInputValue(e.target.parentElement.parentElement.children[0].innerText);
+    setEditStatus(true);
+
+    setEditBtnId(e.target.id);
+  };
+
+  const handleEditRow = (e) => {
+    setEditStatus(false);
+    console.log(editBtnId);
+    todos.find((el) => el.todoId === editBtnId).todoText = inputValue;
+    setTodos([...todos]);
+    setInputValue("");
   };
 
   return (
@@ -47,9 +64,15 @@ const TodoApp = () => {
             )}
           </Col>
           <Col xs={1}>
-            <Button variant="primary" onClick={() => handleAddTodo()}>
-              Add
-            </Button>
+            {editStatus ? (
+              <Button variant="primary" onClick={() => handleEditRow()}>
+                Edit
+              </Button>
+            ) : (
+              <Button variant="primary" onClick={() => handleAddTodo()}>
+                Add
+              </Button>
+            )}
           </Col>
           <Col xs={2}></Col>
         </Row>
@@ -61,13 +84,23 @@ const TodoApp = () => {
                 <Col xs={8}>
                   <ListGroup.Item className="d-flex justify-content-between align-items-center">
                     <p className="m-0">{element.todoText}</p>
-                    <Button
-                      id={element.todoId}
-                      variant="danger"
-                      onClick={(e) => handleDelete(e)}
-                    >
-                      Delete
-                    </Button>
+                    <div>
+                      <Button
+                        id={element.todoId}
+                        variant="danger"
+                        onClick={(e) => handleDelete(e)}
+                        className="me-3"
+                      >
+                        Delete
+                      </Button>
+                      <Button
+                        id={element.todoId}
+                        variant="warning"
+                        onClick={(e) => handleEdit(e)}
+                      >
+                        Edit
+                      </Button>
+                    </div>
                   </ListGroup.Item>
                 </Col>
               </Row>
