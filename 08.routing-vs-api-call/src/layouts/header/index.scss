@@ -1,0 +1,25 @@
+#header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    background-color: teal;
+    color: white;
+    a {
+        color: white;
+        text-decoration: none;
+        margin: 0 20px;
+    }
+    nav {
+        a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+
+            &.active {
+                text-decoration: underline;
+                color: rgb(232, 146, 33);
+            }
+        }
+    }
+}
