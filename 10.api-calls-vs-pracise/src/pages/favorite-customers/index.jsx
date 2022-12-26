@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { message, Popconfirm } from "antd";
 import "./index.scss";
+import { Helmet } from "react-helmet";
+
 
 const FavoriteCustomers = ({ favorites, setFavorites }) => {
   const handleRemove = (id) => {
@@ -22,6 +24,11 @@ const FavoriteCustomers = ({ favorites, setFavorites }) => {
 
   return (
     <div id="favorites-list">
+      <Helmet>
+        <title>Favorites Page</title>
+        <meta charSet="utf-8" />
+        <meta description="this is favorite customers list page" />
+      </Helmet>
       <Button
         danger
         onClick={() => {

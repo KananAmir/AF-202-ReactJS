@@ -2,16 +2,16 @@ import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCustomerById } from "../../services/customers.service";
+import { Helmet } from "react-helmet";
 
 const CustomerDetail = () => {
-  const [customers, setCustomers] = useState({});
+  const [customer, setCustomer] = useState({});
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   const getData = async () => {
-    setCustomers(await getCustomerById(id));
-    
+    setCustomer(await getCustomerById(id));
   };
 
   useEffect(() => {
@@ -20,17 +20,25 @@ const CustomerDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{customer.companyName}</title>
+        <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content={customer.address?.city + ", " + customer.address?.country}
+        />
+      </Helmet>
       <ul>
-        <li>ID: {customers.id}</li>
-        <li>Company Name: {customers.companyName}</li>
+        <li>ID: {customer.id}</li>
+        <li>Company Name: {customer.companyName}</li>
         <li>
-          Adress: {customers.address?.city}, {customers.address?.country}
+          Adress: {customer.address?.city}, {customer.address?.country}
         </li>
       </ul>
       <Button type="primary" ghost danger onClick={() => navigate(-1)}>
         Go Back
       </Button>
-      <Button type="primary" ghost danger onClick={() => navigate('/')}>
+      <Button type="primary" ghost danger onClick={() => navigate("/")}>
         Go to Home
       </Button>
     </>

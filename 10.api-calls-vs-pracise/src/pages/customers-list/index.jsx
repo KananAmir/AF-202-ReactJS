@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../../components/spinner";
 import { message, Popconfirm } from "antd";
+import { Helmet } from "react-helmet";
 
 import {
   deleteCustomerById,
@@ -46,7 +47,7 @@ const CustomerList = ({ favorites, setFavorites }) => {
       setFavorites([...favorites, obj]);
       console.log(favorites);
 
-      openNotification()
+      openNotification();
     } else {
       alert("Bele bir customer var");
     }
@@ -64,8 +65,7 @@ const CustomerList = ({ favorites, setFavorites }) => {
   const openNotification = () => {
     notification.open({
       message: "Info",
-      description:
-        "Added to favorites succesfully!!",
+      description: "Added to favorites succesfully!!",
       onClick: () => {
         console.log("Notification Clicked!");
       },
@@ -74,6 +74,11 @@ const CustomerList = ({ favorites, setFavorites }) => {
 
   return (
     <div id="customer-list">
+      <Helmet>
+        <title>Customers Page</title>
+        <meta charSet="utf-8" />
+        <meta description="this is customers list page" />
+      </Helmet>
       {isLoaoding ? (
         <Spinner />
       ) : (

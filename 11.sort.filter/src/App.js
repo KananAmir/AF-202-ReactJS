@@ -1,22 +1,47 @@
 import "./App.scss";
-import Card from "./components/card";
-import ParentComp from "./components/parent";
-import Footer from "./layouts/footer";
-import Header from "./layouts/header";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function App() {
-  let groupName = "AF202";
-  let result = 85;
+  const [orders, setOrders] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get("https://northwind.vercel.app/api/orders")
+      .then((res) => setOrders(res.data));
+  }, []);
+
+  const handleChange = (e) => {
+    axios.get("https://northwind.vercel.app/api/orders").then((res) => {
+      let newOrders = res.data.filter((order) =>
+        order.shipName.includes(e.target.value)
+      );
+      setOrders(newOrders);
+    });
+  };
   return (
     <div className="App">
-      <h1>Hello World</h1>
-      <Header group={groupName} result={result} />
-      <Card />
-      <hr />
-      <Footer result={result} />
+      <input type="text" onChange={(e) => handleChange(e)} />
 
-      {/* <ParentComp /> */}
+      {console.log(orders)}
+      <table>
+        <thead>
+          <th>id</th>
+          <th>shipName</th>
+          <th>freight</th>
+        </thead>
+        <tbody>
+          {orders.map((q) => {
+            return (
+              <tr>
+                <td>{q.id}</td>
+                <td>{q.shipName}</td>
+                <td>{q.freight}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
