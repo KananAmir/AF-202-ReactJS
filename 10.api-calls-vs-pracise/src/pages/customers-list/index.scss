@@ -1,4 +1,13 @@
-#customer-list{
+#customer-list {
     display: flex;
     justify-content: center;
+
+    .added-already {
+        // &:disabled: true
+        background-color: rgb(238, 120, 120);
+    }
+    .add-to-favorite {
+        background-color: rgb(33, 122, 230);
+        color: white;
+    }
 }

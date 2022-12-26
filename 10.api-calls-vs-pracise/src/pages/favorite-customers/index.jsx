@@ -22,6 +22,15 @@ const FavoriteCustomers = ({ favorites, setFavorites }) => {
 
   return (
     <div id="favorites-list">
+      <Button
+        danger
+        onClick={() => {
+          setFavorites([]);
+        }}
+      >
+        Remove All Customers
+      </Button>
+      <br />
       <table>
         <thead>
           <th>ID</th>

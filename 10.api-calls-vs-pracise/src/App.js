@@ -7,8 +7,9 @@ import CustomerList from "./pages/customers-list";
 import CustomerDetail from "./pages/customer-detail";
 import FavoriteCustomers from "./pages/favorite-customers";
 import NotFound from "./pages/not-found";
-import AddCustomer from "./pages/add-customer";
+import AddCustomerAntd from "./pages/add-customer-antd";
 import { useState } from "react";
+import AddCustomerFormikYup from "./pages/add-customer-formik-yup";
 
 function App() {
   const [favorites, setFavorites] = useState([]);
@@ -36,7 +37,8 @@ function App() {
             />
           }
         />
-        <Route path="/add-customer" element={<AddCustomer />} />
+        {/* <Route path="/add-customer" element={<AddCustomerAntd />} /> */}
+        <Route path="/add-customer" element={<AddCustomerFormikYup />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, notification } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -45,6 +45,8 @@ const CustomerList = ({ favorites, setFavorites }) => {
     if (!favorites.find((el) => el.id === obj.id)) {
       setFavorites([...favorites, obj]);
       console.log(favorites);
+
+      openNotification()
     } else {
       alert("Bele bir customer var");
     }
@@ -57,6 +59,17 @@ const CustomerList = ({ favorites, setFavorites }) => {
   const cancel = (e) => {
     console.log(e);
     message.error("Click on No");
+  };
+
+  const openNotification = () => {
+    notification.open({
+      message: "Info",
+      description:
+        "Added to favorites succesfully!!",
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+    });
   };
 
   return (
@@ -80,9 +93,9 @@ const CustomerList = ({ favorites, setFavorites }) => {
                 <tr>
                   <td>{customer.id}</td>
                   <td>{customer.companyName}</td>
-                  <td>{customer.address.phone}</td>
+                  <td>{customer.address?.phone}</td>
                   <td>
-                    {customer.address.city}, {customer.address.country}
+                    {customer.address?.city}, {customer.address?.country}
                   </td>
                   <td>
                     <Popconfirm
@@ -104,11 +117,23 @@ const CustomerList = ({ favorites, setFavorites }) => {
                   </td>
                   <td>
                     <Button
+                      disabled={
+                        favorites.find((el) => el.id === customer.id)
+                          ? true
+                          : false
+                      }
+                      // className={
+                      //   favorites.find((el) => el.id === customer.id)
+                      //     ? "added-already"
+                      //     : "add-to-favorite"
+                      // }
                       type="primary"
                       ghost
                       onClick={() => handleAddToFavorites(customer)}
                     >
-                      Add to Favorites
+                      {!favorites.find((el) => el.id === customer.id)
+                        ? "Add to Favorites"
+                        : "Added Already"}
                     </Button>
                   </td>
                   <td>
